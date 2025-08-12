@@ -5,6 +5,7 @@ https://github.com/user-attachments/assets/e30c8af4-2ab8-4447-81da-7e713754cf5a
 
 
 Create a virtual environment and install dependencies:
+Should have python version < 3.11 
    ```bash
    python -m venv .venv
    source .venv/bin/activate  # Windows: .venv\Scripts\activate
