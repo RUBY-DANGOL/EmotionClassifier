@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Classifier (.h5)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Image Classifier</h1>
+      <p class="subtle">Keras .h5 model • Input size inferred as {{input_w}}×{{input_h}}×{{input_c}}</p>
+      {% if not has_model %}
+      <div class="warning">⚠️ No model loaded. Place your <code>model.h5</code> next to <code>app.py</code> and restart.</div>
+      {% endif %}
+      {% if not has_labels %}
+      <div class="note">Tip: add a <code>labels.json</code> </div>
+      {% endif %}
+    </header>
+
+    <section class="card">
+      <div class="tabs">
+        <button class="tab-button active" data-tab="upload">Upload</button>
+        <button class="tab-button" data-tab="camera">Camera</button>
+      </div>
+
+      <div id="tab-upload" class="tab active">
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="file-input" accept="image/*">
+          <p>Choose an image to classify.</p>
+        </div>
+        <div class="preview">
+          <img id="preview-img" alt="Preview will appear here">
+        </div>
+        <button id="predict-upload" class="primary" disabled>Predict</button>
+      </div>
+
+      <div id="tab-camera" class="tab">
+        <div class="camera">
+          <video id="video" autoplay playsinline></video>
+          <canvas id="canvas" class="hidden"></canvas>
+        </div>
+        <div class="controls">
+          <button id="start-camera">Start Camera</button>
+          <button id="capture" class="primary" disabled>Capture & Predict</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="card">
+      <h2>Results</h2>
+      <div id="results-body" class="results-body subtle">No predictions yet.</div>
+    </section>
+
+    <footer class="footer">
+      <p>Built with Flask • Works offline after loading the model.</p>
+    </footer>
+  </main>
+
+  <script>
+    const PREDICT_URL = "/predict";
+  </script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
